@@ -3,110 +3,131 @@
   --puzzle-green: #2e9e4f;
   --puzzle-red: #d93025;
   position: relative;
-  width: 380px;
+  display: flex;
+  flex-direction: column;
+  width: min(340px, 94vw);
   max-width: 94vw;
   background: #fff;
   border: 1px solid #d3d3d3;
-  border-radius: 6px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
   color: #222;
   font-family: Roboto, "Segoe UI", Helvetica, Arial, sans-serif;
   user-select: none;
-  transition: transform 0.15s;
-}
-
-.puzzle.is-shake {
-  animation: puzzle-shake 0.4s;
-}
-
-@keyframes puzzle-shake {
-  20% {
-    transform: translateX(-12px);
-  }
-  40% {
-    transform: translateX(12px);
-  }
-  60% {
-    transform: translateX(-8px);
-  }
-  80% {
-    transform: translateX(8px);
-  }
 }
 
 .puzzle-head {
-  padding: 14px 16px;
-  border-radius: 6px 6px 0 0;
+  box-sizing: border-box;
+  padding: 12px 14px;
   background: var(--puzzle-blue);
   color: #fff;
 }
 
 .puzzle-head small {
   display: block;
-  opacity: 0.85;
+  opacity: 0.9;
   font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 .puzzle-head b {
-  font-size: 20px;
-  line-height: 1.25;
+  display: block;
+  margin-top: 2px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
-.puzzle-msg {
-  height: 0;
-  margin: 0;
-  padding: 0 14px;
-  overflow: hidden;
-  background: var(--puzzle-red);
-  color: #fff;
-  font-size: 13px;
-  line-height: 28px;
-  transition: height 0.15s;
-}
-
-.puzzle-msg.on {
-  height: 28px;
+.puzzle-head-hint {
+  display: block;
+  margin-top: 6px;
+  opacity: 0.9;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 .puzzle-body {
   position: relative;
-  height: 390px;
-  padding: 14px;
-  overflow: hidden;
-}
-
-.puzzle .is-locked {
-  pointer-events: none;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  overflow: visible;
 }
 
 .puzzle-foot {
+  box-sizing: border-box;
   display: flex;
-  align-items: center;
+  width: 100%;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: 8px 14px;
+  gap: 10px;
+  padding: 8px 12px;
   border-top: 1px solid #eee;
-  color: #888;
-  font-size: 11px;
+}
+
+.puzzle-foot-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.puzzle-error {
+  margin: 0;
+  color: var(--puzzle-red);
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.puzzle-foot .puzzle-submit {
+  flex: none;
+  margin-left: auto;
+}
+
+.puzzle-tools {
+  display: grid;
+  grid-template-columns: repeat(3, 28px);
+  width: 84px;
+  height: 28px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.puzzle-tool {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .puzzle .big {
   margin: 4px 0 12px;
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .puzzle .hint {
-  margin-top: 8px;
+  margin: 0 0 10px;
   color: #777;
   font-size: 12px;
 }
 
 .puzzle input[type='text'] {
+  display: block;
   width: 100%;
+  box-sizing: border-box;
   margin-top: 12px;
   padding: 8px 10px;
   border: 2px solid #333;
-  border-radius: 3px;
   font-size: 18px;
   user-select: text;
 }
@@ -116,13 +137,15 @@
 }
 
 .puzzle-submit {
-  margin-top: 12px;
-  padding: 9px 20px;
+  box-sizing: border-box;
+  min-width: 72px;
+  padding: 9px 16px;
   border: 0;
-  border-radius: 3px;
   background: var(--puzzle-blue);
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
   cursor: pointer;
 }
 
@@ -139,6 +162,7 @@
 .puzzle .grid {
   display: grid;
   gap: 3px;
+  width: 100%;
 }
 
 .puzzle .tile {
@@ -147,6 +171,8 @@
   place-items: center;
   aspect-ratio: 1;
   overflow: hidden;
+  min-width: 0;
+  min-height: 0;
   padding: 0;
   border: 0;
   background: #eee;
@@ -174,8 +200,7 @@
 }
 
 .puzzle .tile.sel {
-  outline: 4px solid var(--puzzle-blue);
-  outline-offset: -4px;
+  box-shadow: inset 0 0 0 4px var(--puzzle-blue);
 }
 
 .puzzle .tile.sel::after {
@@ -187,7 +212,6 @@
   place-items: center;
   width: 18px;
   height: 18px;
-  border-radius: 50%;
   background: var(--puzzle-blue);
   color: #fff;
   font-size: 12px;

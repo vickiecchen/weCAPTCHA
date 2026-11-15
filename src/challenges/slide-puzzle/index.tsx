@@ -5,8 +5,8 @@ import type { ChallengeProps } from '../types'
 import sceneUrl from './assets/scene.jpg'
 import './styles.css'
 
-const WIDTH = 340
-const HEIGHT = 180
+const WIDTH = 316
+const HEIGHT = 168
 const PIECE = 40
 
 function piecePath(x: number, y: number) {
@@ -119,7 +119,7 @@ function SlideRound({ onPass, onFail }: RoundApi) {
 
 export function SlidePuzzle(props: ChallengeProps) {
   return (
-    <ChallengeRound title="Slide to complete the puzzle" {...props}>
+    <ChallengeRound prompt="Verification" title="Slide to complete the puzzle" {...props}>
       {(api) => <SlideRound {...api} />}
     </ChallengeRound>
   )

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { findAsset } from '../assets'
 import { ChallengeRound, type RoundApi } from '../ChallengeRound'
 import { EmojiPhoto } from '../EmojiPhoto'
@@ -28,7 +28,7 @@ function makeItems(): Item[] {
   return shuffle([...dogs, ...muffins])
 }
 
-function MuffinRound({ onPass, onFail }: RoundApi) {
+function MuffinRound({ onPass, onFail, setAction }: RoundApi) {
   const [items] = useState(makeItems)
   const [selected, setSelected] = useState<Set<string>>(() => new Set())
 
@@ -41,37 +41,42 @@ function MuffinRound({ onPass, onFail }: RoundApi) {
     })
   }
 
-  function verify() {
-    const correct = items.every((item) => item.dog === selected.has(item.id))
-    if (correct) onPass()
-    else onFail()
-  }
+  useEffect(() => {
+    setAction({
+      label: selected.size > 0 ? 'VERIFY' : 'SKIP',
+      onClick: () => {
+        const correct = items.every((item) => item.dog === selected.has(item.id))
+        if (correct) onPass()
+        else onFail()
+      },
+    })
+  }, [items, onFail, onPass, selected, setAction])
 
   return (
-    <>
-      <div className="grid muffin-grid">
-        {items.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            className={selected.has(item.id) ? 'tile sel' : 'tile'}
-            aria-pressed={selected.has(item.id)}
-            onClick={() => toggle(item.id)}
-          >
-            <EmojiPhoto src={findAsset(photos, item.id)} emoji={item.emoji} />
-          </button>
-        ))}
-      </div>
-      <button type="button" className="puzzle-submit" onClick={verify}>
-        Verify
-      </button>
-    </>
+    <div className="grid muffin-grid">
+      {items.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          className={selected.has(item.id) ? 'tile sel' : 'tile'}
+          aria-pressed={selected.has(item.id)}
+          onClick={() => toggle(item.id)}
+        >
+          <EmojiPhoto src={findAsset(photos, item.id)} emoji={item.emoji} />
+        </button>
+      ))}
+    </div>
   )
 }
 
 export function MuffinChihuahua(props: ChallengeProps) {
   return (
-    <ChallengeRound title="Select all chihuahuas" {...props}>
+    <ChallengeRound
+      prompt="Select all squares with"
+      title="chihuahuas"
+      hint="If there are none, click skip"
+      {...props}
+    >
       {(api) => <MuffinRound {...api} />}
     </ChallengeRound>
   )

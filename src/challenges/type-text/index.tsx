@@ -3,6 +3,9 @@ import { ChallengeRound, type RoundApi } from '../ChallengeRound'
 import { rnd } from '../random'
 import type { ChallengeProps } from '../types'
 
+const CANVAS_W = 340
+const CANVAS_H = 90
+
 function drawCode(canvas: HTMLCanvasElement, code: string) {
   const context = canvas.getContext('2d')
   if (!context) return
@@ -32,7 +35,7 @@ function drawCode(canvas: HTMLCanvasElement, code: string) {
   }
 }
 
-function TypeTextRound({ onPass, onFail }: RoundApi) {
+function TypeTextRound({ onPass, onFail, setAction }: RoundApi) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const [code] = useState(() => String(rnd(1000, 9999)))
@@ -45,14 +48,24 @@ function TypeTextRound({ onPass, onFail }: RoundApi) {
     return () => window.clearTimeout(focus)
   }, [code])
 
-  function submit() {
-    if (value.trim() === code) onPass()
-    else onFail()
-  }
+  useEffect(() => {
+    setAction({
+      label: 'VERIFY',
+      onClick: () => {
+        if (value.trim() === code) onPass()
+        else onFail()
+      },
+    })
+  }, [code, onFail, onPass, setAction, value])
 
   return (
-    <>
-      <canvas ref={canvasRef} width={340} height={90} aria-label="Distorted verification text" />
+    <div className="type-text-panel">
+      <canvas
+        ref={canvasRef}
+        width={CANVAS_W}
+        height={CANVAS_H}
+        aria-label="Distorted verification text"
+      />
       <input
         ref={inputRef}
         type="text"
@@ -64,19 +77,19 @@ function TypeTextRound({ onPass, onFail }: RoundApi) {
         value={value}
         onChange={(event) => setValue(event.target.value)}
         onKeyDown={(event) => {
-          if (event.key === 'Enter') submit()
+          if (event.key === 'Enter') {
+            if (value.trim() === code) onPass()
+            else onFail()
+          }
         }}
       />
-      <button type="button" className="puzzle-submit" onClick={submit}>
-        Submit
-      </button>
-    </>
+    </div>
   )
 }
 
 export function TypeText(props: ChallengeProps) {
   return (
-    <ChallengeRound title="Type the text you see" {...props}>
+    <ChallengeRound prompt="Verification" title="Type the text you see" {...props}>
       {(api) => <TypeTextRound {...api} />}
     </ChallengeRound>
   )

@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import { beep } from '../beep'
 import { Puzzle } from '../ChallengeRound'
 import { rnd } from '../random'
 import type { ChallengeProps } from '../types'
@@ -32,7 +31,6 @@ export function AreYouHuman({ onPass }: ChallengeProps) {
     dodges.current += 1
     setScale((current) => current * 0.93)
     setSpot(randomSpot())
-    beep(300 + dodges.current * 40, 0.04)
   }
 
   function click() {
@@ -43,11 +41,9 @@ export function AreYouHuman({ onPass }: ChallengeProps) {
     if (stage + 1 >= PROMPTS.length) {
       if (solved.current) return
       solved.current = true
-      beep(880, 0.12)
       onPass()
       return
     }
-    beep(660, 0.08)
     dodges.current = 0
     setStage(stage + 1)
     setScale(1)
@@ -55,19 +51,20 @@ export function AreYouHuman({ onPass }: ChallengeProps) {
   }
 
   return (
-    <Puzzle title="Are you human?">
-      <p className="big">{prompt[0]}</p>
-      <div className="human-field">
-        <button
-          type="button"
-          className="human-box"
-          style={{ left: spot.x, top: spot.y, transform: `scale(${scale})` }}
-          onPointerEnter={dodge}
-          onClick={click}
-        >
-          <span className="human-check" />
-          <span>{prompt[1]}</span>
-        </button>
+    <Puzzle prompt="Verification" title={prompt[0]}>
+      <div className="human-panel">
+        <div className="human-field">
+          <button
+            type="button"
+            className="human-box"
+            style={{ left: spot.x, top: spot.y, transform: `scale(${scale})` }}
+            onPointerEnter={dodge}
+            onClick={click}
+          >
+            <span className="human-check" />
+            <span>{prompt[1]}</span>
+          </button>
+        </div>
       </div>
     </Puzzle>
   )

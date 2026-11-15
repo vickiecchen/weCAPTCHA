@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { beep } from '../beep'
 import { Puzzle } from '../ChallengeRound'
 import { rnd } from '../random'
 import type { ChallengeProps } from '../types'
@@ -88,7 +87,6 @@ export function DuckPen({ onPass }: ChallengeProps) {
           duck.spd = 1 + Math.random() * 1.4
           duck.vx = Math.cos(angle) * duck.spd
           duck.vy = Math.sin(angle) * duck.spd
-          beep(300 + i * 30, 0.05)
         }, 500 + i * 260 + rnd(0, 200)),
       )
       el.onpointerdown = (event) => {
@@ -103,7 +101,6 @@ export function DuckPen({ onPass }: ChallengeProps) {
         }
         el.style.cursor = 'grabbing'
         el.style.zIndex = '60'
-        beep(520, 0.04)
       }
       el.onpointermove = (event) => {
         if (!duck.drag) return
@@ -119,11 +116,9 @@ export function DuckPen({ onPass }: ChallengeProps) {
           duck.penned = true
           penned += 1
           wander(duck)
-          beep(700, 0.06)
           setInPen(penned)
           if (!solved && penned === DUCKS && ducks.every((item) => item.escaped)) {
             solved = true
-            beep(880, 0.12)
             onPassRef.current()
           }
         } else {
@@ -171,12 +166,14 @@ export function DuckPen({ onPass }: ChallengeProps) {
   }, [])
 
   return (
-    <Puzzle title="Put the escaped ducks back in the pen">
-      <p className="big">In the pen: {inPen}/{DUCKS}</p>
-      <div className="duck-pond" ref={pondRef}>
-        <div className="duck-pen-label">DUCK PEN</div>
+    <Puzzle prompt="Verification" title="Put the escaped ducks back in the pen">
+      <div className="duck-pen-panel">
+        <p className="big">In the pen: {inPen}/{DUCKS}</p>
+        <div className="duck-pond" ref={pondRef}>
+          <div className="duck-pen-label">DUCK PEN</div>
+        </div>
+        <p className="hint">Drag each duck back into the pen.</p>
       </div>
-      <p className="hint">Drag each duck back into the pen.</p>
     </Puzzle>
   )
 }

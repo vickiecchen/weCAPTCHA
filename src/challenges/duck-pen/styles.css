@@ -1,8 +1,11 @@
+.duck-pen-panel {
+  width: 100%;
+}
+
 .duck-pond {
   position: relative;
-  height: 210px;
+  height: 200px;
   border: 4px dashed #8b5a2b;
-  border-radius: 8px;
   background: #e8d9ae;
 }
 
@@ -12,9 +15,9 @@
   display: grid;
   place-items: center;
   color: rgba(139, 90, 43, 0.28);
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   pointer-events: none;
 }
 

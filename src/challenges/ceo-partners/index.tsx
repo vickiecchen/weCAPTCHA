@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { findAsset } from '../assets'
 import { ChallengeRound, type RoundApi } from '../ChallengeRound'
 import { EmojiPhoto } from '../EmojiPhoto'
@@ -23,7 +23,7 @@ const PEOPLE = [
   { id: 8, name: 'Kimberly Powell', role: 'Vice President of Health Care', emoji: '👩‍💼', partner: true },
 ] as const
 
-function CeoRound({ onPass, onFail }: RoundApi) {
+function CeoRound({ onPass, onFail, setAction }: RoundApi) {
   const [people] = useState(() => shuffle(PEOPLE))
   const [selected, setSelected] = useState<Set<number>>(() => new Set())
 
@@ -36,11 +36,16 @@ function CeoRound({ onPass, onFail }: RoundApi) {
     })
   }
 
-  function verify() {
-    const correct = people.every((person) => person.partner === selected.has(person.id))
-    if (correct) onPass()
-    else onFail()
-  }
+  useEffect(() => {
+    setAction({
+      label: selected.size > 0 ? 'VERIFY' : 'SKIP',
+      onClick: () => {
+        const correct = people.every((person) => person.partner === selected.has(person.id))
+        if (correct) onPass()
+        else onFail()
+      },
+    })
+  }, [onFail, onPass, people, selected, setAction])
 
   let placed = 0
   const cells = []
@@ -74,20 +79,17 @@ function CeoRound({ onPass, onFail }: RoundApi) {
     )
   }
 
-  return (
-    <>
-      <p className="hint">Select every business partner of the CEO in the middle.</p>
-      <div className="grid ceo-grid">{cells}</div>
-      <button type="button" className="puzzle-submit" onClick={verify}>
-        Verify
-      </button>
-    </>
-  )
+  return <div className="grid ceo-grid">{cells}</div>
 }
 
 export function CeoPartners(props: ChallengeProps) {
   return (
-    <ChallengeRound title="Select all of the CEO's business partners" {...props}>
+    <ChallengeRound
+      prompt="Select all squares with"
+      title="business partners"
+      hint="If there are none, click skip"
+      {...props}
+    >
       {(api) => <CeoRound {...api} />}
     </ChallengeRound>
   )

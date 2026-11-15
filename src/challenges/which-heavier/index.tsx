@@ -52,7 +52,7 @@ function HeavierRound({ onPass, onFail }: RoundApi) {
 
 export function WhichHeavier(props: ChallengeProps) {
   return (
-    <ChallengeRound title="Click the object that would tip the scale" {...props}>
+    <ChallengeRound prompt="Verification" title="Click the object that would tip the scale" {...props}>
       {(api) => <HeavierRound {...api} />}
     </ChallengeRound>
   )

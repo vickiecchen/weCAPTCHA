@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { beep } from '../beep'
 import { Puzzle } from '../ChallengeRound'
 import { rnd } from '../random'
 import type { ChallengeProps } from '../types'
@@ -77,7 +76,6 @@ export function StupidApi({ onPass, onFail }: ChallengeProps) {
       if (root instanceof HTMLElement) {
         root.style.transform = `rotate(${(Math.random() * 2 - 1) * tilt}deg)`
       }
-      beep(200 + depth * 25, 0.05)
       if (depth === 6) setGlitch(true)
     }, 1600)
 
@@ -90,7 +88,7 @@ export function StupidApi({ onPass, onFail }: ChallengeProps) {
   }, [])
 
   return (
-    <Puzzle title={heading} sub="Verifying…" className={glitch ? 'is-glitch' : undefined}>
+    <Puzzle title={heading} prompt="Verifying…" className={glitch ? 'is-glitch' : undefined}>
       <div>
         <div className="api-term" ref={termRef} />
         <div className="api-bar">

@@ -12,7 +12,6 @@
   height: 120px;
   overflow: hidden;
   padding: 6px;
-  border-radius: 4px;
   background: #111;
   color: #7cfc9a;
   font: 11px/1.35 ui-monospace, Menlo, Consolas, monospace;
@@ -24,7 +23,6 @@
   height: 10px;
   margin-top: 8px;
   overflow: hidden;
-  border-radius: 5px;
   background: #eee;
 }
 

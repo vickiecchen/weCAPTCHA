@@ -4,15 +4,17 @@ import { rnd, shuffle } from '../random'
 import type { ChallengeProps } from '../types'
 import './styles.css'
 
-const COLUMNS = [45, 125, 205, 285]
-const CENTER_Y = 180
+/** Positions fit the ~316px content area of the default puzzle card. */
+const COLUMNS = [40, 112, 184, 256]
+const CENTER_Y = 150
+const BLOB = 84
 
 function layoutCircles() {
   const smallIndex = rnd(0, 3)
-  const sizes = shuffle([64, 52, 40])
+  const sizes = shuffle([54, 44, 34])
   let other = 0
   const circles = COLUMNS.map((x, index) => {
-    const size = index === smallIndex ? 12 : (sizes[other++] ?? 40)
+    const size = index === smallIndex ? 11 : (sizes[other++] ?? 34)
     return { x, size, small: index === smallIndex }
   })
   return { circles, smallIndex }
@@ -21,8 +23,8 @@ function layoutCircles() {
 function SmallestRound({ onPass, onFail }: RoundApi) {
   const [{ circles, smallIndex }] = useState(layoutCircles)
   const [blob, setBlob] = useState(() => ({
-    x: COLUMNS[smallIndex]! - 48,
-    y: CENTER_Y - 48,
+    x: COLUMNS[smallIndex]! - BLOB / 2,
+    y: CENTER_Y - BLOB / 2,
   }))
   const drag = useRef<{ pointerX: number; pointerY: number; x: number; y: number } | null>(null)
 
@@ -77,7 +79,7 @@ function SmallestRound({ onPass, onFail }: RoundApi) {
 
 export function SmallestCircle(props: ChallengeProps) {
   return (
-    <ChallengeRound title="Click the smallest circle" {...props}>
+    <ChallengeRound prompt="Verification" title="Click the smallest circle" {...props}>
       {(api) => <SmallestRound {...api} />}
     </ChallengeRound>
   )
