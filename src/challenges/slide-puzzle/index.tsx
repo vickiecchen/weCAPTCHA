@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ChallengeRound, type RoundApi } from '../ChallengeRound'
 import { rnd } from '../random'
 import type { ChallengeProps } from '../types'
+import sceneUrl from './assets/scene.jpg'
 import './styles.css'
 
 const WIDTH = 340
@@ -15,41 +16,11 @@ function piecePath(x: number, y: number) {
   return path
 }
 
-function paintScene(context: CanvasRenderingContext2D) {
-  const sky = context.createLinearGradient(0, 0, 0, HEIGHT)
-  sky.addColorStop(0, '#5fa8e6')
-  sky.addColorStop(0.55, '#dcebf7')
-  sky.addColorStop(0.56, '#2c3e50')
-  sky.addColorStop(1, '#16212c')
-  context.fillStyle = sky
-  context.fillRect(0, 0, WIDTH, HEIGHT)
-  context.fillStyle = 'rgba(255,255,255,.92)'
-  for (const [cx, cy] of [
-    [40, 35],
-    [150, 25],
-    [250, 48],
-  ] as const) {
-    for (let i = 0; i < 4; i++) {
-      context.beginPath()
-      context.arc(cx + i * 14, cy + (i % 2) * 6, 16, 0, Math.PI * 2)
-      context.fill()
-    }
-  }
-  context.fillStyle = '#3a4a5a'
-  context.beginPath()
-  context.moveTo(WIDTH / 2 - 5, HEIGHT * 0.56)
-  context.lineTo(WIDTH / 2 + 5, HEIGHT * 0.56)
-  context.lineTo(WIDTH, HEIGHT)
-  context.lineTo(0, HEIGHT)
-  context.fill()
-  context.strokeStyle = '#fff'
-  context.lineWidth = 3
-  context.setLineDash([14, 12])
-  context.beginPath()
-  context.moveTo(WIDTH / 2, HEIGHT * 0.56)
-  context.lineTo(WIDTH / 2, HEIGHT)
-  context.stroke()
-  context.setLineDash([])
+function drawCover(context: CanvasRenderingContext2D, image: HTMLImageElement) {
+  const scale = Math.max(WIDTH / image.naturalWidth, HEIGHT / image.naturalHeight)
+  const width = image.naturalWidth * scale
+  const height = image.naturalHeight * scale
+  context.drawImage(image, (WIDTH - width) / 2, (HEIGHT - height) / 2, width, height)
 }
 
 function positionOf(value: number) {
@@ -70,28 +41,50 @@ function SlideRound({ onPass, onFail }: RoundApi) {
     const canvas = canvasRef.current
     const context = canvas?.getContext('2d')
     if (!canvas || !context) return
-    if (!sceneRef.current) {
-      const scene = document.createElement('canvas')
-      scene.width = WIDTH
-      scene.height = HEIGHT
-      const sceneContext = scene.getContext('2d')
-      if (!sceneContext) return
-      paintScene(sceneContext)
-      sceneRef.current = scene
+    let cancelled = false
+
+    const paint = (scene: HTMLCanvasElement) => {
+      if (cancelled) return
+      const pieceX = positionOf(value)
+      context.clearRect(0, 0, WIDTH, HEIGHT)
+      context.drawImage(scene, 0, 0)
+      context.fillStyle = 'rgba(0,0,0,.55)'
+      context.fill(piecePath(holeX, holeY))
+      context.save()
+      context.clip(piecePath(pieceX, holeY))
+      context.drawImage(scene, pieceX - holeX, 0)
+      context.restore()
+      context.strokeStyle = '#fff'
+      context.lineWidth = 2
+      context.stroke(piecePath(pieceX, holeY))
     }
-    const scene = sceneRef.current
-    const pieceX = positionOf(value)
-    context.clearRect(0, 0, WIDTH, HEIGHT)
-    context.drawImage(scene, 0, 0)
-    context.fillStyle = 'rgba(0,0,0,.55)'
-    context.fill(piecePath(holeX, holeY))
-    context.save()
-    context.clip(piecePath(pieceX, holeY))
-    context.drawImage(scene, pieceX - holeX, 0)
-    context.restore()
-    context.strokeStyle = '#fff'
-    context.lineWidth = 2
-    context.stroke(piecePath(pieceX, holeY))
+
+    const ready = sceneRef.current
+    if (ready) {
+      paint(ready)
+      return () => {
+        cancelled = true
+      }
+    }
+
+    const image = new Image()
+    image.onload = () => {
+      if (cancelled) return
+      if (!sceneRef.current) {
+        const scene = document.createElement('canvas')
+        scene.width = WIDTH
+        scene.height = HEIGHT
+        const sceneContext = scene.getContext('2d')
+        if (!sceneContext) return
+        drawCover(sceneContext, image)
+        sceneRef.current = scene
+      }
+      paint(sceneRef.current)
+    }
+    image.src = sceneUrl
+    return () => {
+      cancelled = true
+    }
   }, [holeX, holeY, value])
 
   useEffect(() => {
