@@ -51,7 +51,7 @@ export const challenges: ChallengeDefinition[] = [
   },
   {
     id: 'duck-pen',
-    title: 'Put the escaped ducks back in the pen',
+    title: 'Put the escaped hamsters back in the pen',
     prompt: '',
     Component: DuckPen,
   },

@@ -5,27 +5,21 @@
 .duck-pond {
   position: relative;
   height: 200px;
-  border: 4px dashed #8b5a2b;
-  background: #e8d9ae;
-}
-
-.duck-pen-label {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: rgba(139, 90, 43, 0.28);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  pointer-events: none;
+  overflow: hidden;
+  border: 0;
+  background-color: #e8d9ae;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .duck-pen-duck {
   position: fixed;
   z-index: 50;
-  font-size: 34px;
-  line-height: 1;
+  width: 44px;
+  height: 51px;
+  object-fit: fill;
+  pointer-events: auto;
   cursor: grab;
   user-select: none;
   touch-action: none;

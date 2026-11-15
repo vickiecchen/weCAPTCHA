@@ -8,11 +8,22 @@
   width: min(340px, 94vw);
   max-width: 94vw;
   background: #fff;
-  border: 1px solid #d3d3d3;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  border: 0;
+  outline: none;
+  box-shadow: none;
   color: #222;
   font-family: Roboto, "Segoe UI", Helvetica, Arial, sans-serif;
   user-select: none;
+}
+
+/* Grey frame sits slightly off the card; its shadow casts from the line, not the box. */
+.puzzle::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid #c0c0c0;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.18);
+  pointer-events: none;
 }
 
 .puzzle-head {

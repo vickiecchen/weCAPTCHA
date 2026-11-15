@@ -12,7 +12,7 @@ body,
 }
 
 body {
-  background: #e9ecef;
+  background: #ffffff;
   color: #222;
   font-family: Roboto, "Segoe UI", Helvetica, Arial, sans-serif;
   overflow: hidden;
@@ -22,7 +22,7 @@ body {
 .stage {
   min-height: 100%;
   width: 100%;
-  background: #e9ecef;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
