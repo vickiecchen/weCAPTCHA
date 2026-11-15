@@ -1,12 +1,36 @@
+.puzzle:has(.ceo-grid) {
+  width: 500px;
+}
+
+.puzzle:has(.ceo-grid) .puzzle-body {
+  height: auto;
+}
+
 .ceo-grid {
   grid-template-columns: repeat(3, 1fr);
-  width: 276px;
+  width: 100%;
+  max-width: 470px;
   margin: 0 auto;
 }
 
+.ceo-grid .cap {
+  font-size: 12px;
+}
+
 .puzzle .tile.ceo-center {
-  font-size: 52px;
+  font-size: 80px;
   outline: 3px solid #222;
   outline-offset: -3px;
   cursor: default;
+}
+
+.puzzle .tile .mystery-text {
+  padding: 6px;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', 'Comic Neue', cursive;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.15;
+  text-align: center;
+  color: #76b900;
+  transform: rotate(-6deg);
 }

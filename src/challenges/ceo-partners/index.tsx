@@ -13,14 +13,14 @@ const photos = import.meta.glob('./assets/*.{jpg,jpeg,png,webp,gif}', {
 }) as Record<string, string>
 
 const PEOPLE = [
-  { id: 1, name: 'Brenda', role: 'Co-founder', emoji: '👩‍🦳', partner: true },
-  { id: 2, name: 'Todd', role: 'Intern (unpaid)', emoji: '🧑‍💻', partner: true },
-  { id: 3, name: 'Linda', role: 'Wife', emoji: '👩', partner: false },
-  { id: 4, name: 'Unnamed', role: 'Mystery investor', emoji: '❓', partner: true },
-  { id: 5, name: 'Gerald', role: 'Rubber duck', emoji: '🦆', partner: true },
-  { id: 6, name: 'Kyle', role: 'Barista', emoji: '🧑‍🍳', partner: false },
-  { id: 7, name: 'Carol', role: 'His mom', emoji: '👵', partner: false },
-  { id: 8, name: 'Priya', role: 'Head of Sales', emoji: '👩‍💼', partner: true },
+  { id: 1, name: 'Afaq', role: 'MathemaTech', emoji: '👩‍🦳', partner: false },
+  { id: 2, name: 'Alice Huang', role: 'Spy', emoji: '🧑‍💻', partner: true },
+  { id: 3, name: 'Ned Leeds', role: 'Competing CEO', emoji: '👩', partner: false },
+  { id: 4, name: 'Unnamed', role: 'Mystery Employee', emoji: '❓', partner: true },
+  { id: 5, name: 'Penn Badgley', role: 'Investor', emoji: '🦆', partner: false },
+  { id: 6, name: 'Willem Dafoe', role: 'GOAT', emoji: '🧑‍🍳', partner: false },
+  { id: 7, name: 'Lebron', role: 'Lebron', emoji: '👵', partner: false },
+  { id: 8, name: 'Kimberly Powell', role: 'Vice President of Health Care', emoji: '👩‍💼', partner: true },
 ] as const
 
 function CeoRound({ onPass, onFail }: RoundApi) {
@@ -49,7 +49,7 @@ function CeoRound({ onPass, onFail }: RoundApi) {
       cells.push(
         <div key="ceo" className="tile ceo-center">
           <EmojiPhoto src={findAsset(photos, 'ceo')} emoji="🕴️" />
-          <span className="cap">CEO</span>
+          <span className="cap">Jensen Huang · CEO</span>
         </div>,
       )
       continue
@@ -65,10 +65,11 @@ function CeoRound({ onPass, onFail }: RoundApi) {
         aria-pressed={selected.has(person.id)}
         onClick={() => toggle(person.id)}
       >
-        <EmojiPhoto src={findAsset(photos, `p${person.id}`)} emoji={person.emoji} />
-        <span className="cap">
-          {person.name} · {person.role}
-        </span>
+        {person.id === 4 ? (
+          <span className="mystery-text">Unknown NVIDIA Employee</span>
+        ) : (
+          <EmojiPhoto src={findAsset(photos, `p${person.id}`)} emoji={person.emoji} />
+        )}
       </button>,
     )
   }
