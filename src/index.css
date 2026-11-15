@@ -1,0 +1,47 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #ffffff;
+}
+
+.stage {
+  min-height: 100%;
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Minimal placeholder puzzle styles — override in your challenge folder */
+.puzzle-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.puzzle-placeholder {
+  display: flex;
+  gap: 8px;
+}
+
+.puzzle-placeholder button {
+  font: inherit;
+  padding: 8px 14px;
+  cursor: pointer;
+}
