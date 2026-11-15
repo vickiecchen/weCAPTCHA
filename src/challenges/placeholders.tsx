@@ -1,3 +1,4 @@
+/** Stand-in puzzles from the shell scaffold. The live sequence is registry.ts. */
 import type { ChallengeDefinition, ChallengeProps } from './types'
 
 function CheckboxChallenge({ onPass, onFail }: ChallengeProps) {

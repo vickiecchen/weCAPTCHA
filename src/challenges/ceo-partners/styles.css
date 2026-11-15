@@ -1,0 +1,12 @@
+.ceo-grid {
+  grid-template-columns: repeat(3, 1fr);
+  width: 276px;
+  margin: 0 auto;
+}
+
+.puzzle .tile.ceo-center {
+  font-size: 52px;
+  outline: 3px solid #222;
+  outline-offset: -3px;
+  cursor: default;
+}

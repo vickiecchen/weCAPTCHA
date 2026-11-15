@@ -1,0 +1,49 @@
+.puzzle.is-glitch {
+  animation: puzzle-hue 1.2s linear infinite;
+}
+
+@keyframes puzzle-hue {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.api-term {
+  height: 120px;
+  overflow: hidden;
+  padding: 6px;
+  border-radius: 4px;
+  background: #111;
+  color: #7cfc9a;
+  font: 11px/1.35 ui-monospace, Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.api-bar {
+  height: 10px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #eee;
+}
+
+.api-bar i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--puzzle-blue);
+}
+
+.api-nest {
+  margin-top: 5px;
+  padding: 5px;
+  border: 2px solid #bbb;
+  background: #fafafa;
+  font-size: 11px;
+  transform-origin: top center;
+}
+
+.api-nest:nth-child(odd) {
+  background: #eef5ff;
+}

@@ -1,0 +1,33 @@
+.human-field {
+  position: relative;
+  height: 270px;
+}
+
+.human-box {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 220px;
+  height: 58px;
+  padding: 0 12px;
+  border: 1px solid #d3d3d3;
+  border-radius: 3px;
+  background: #f9f9f9;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.08);
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    left 0.1s,
+    top 0.1s,
+    transform 0.1s;
+}
+
+.human-check {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border: 2px solid #c1c1c1;
+  border-radius: 2px;
+  background: #fff;
+}

@@ -1,0 +1,7 @@
+Optional photos. Drop a file here and refresh if it does not appear.
+jpg, jpeg, png, webp, or gif. The name must match; the extension can vary.
+
+chi1 through chi8 — chihuahuas (select these)
+muffin1 through muffin8 — blueberry muffins (do not select these)
+
+Missing files show an emoji.

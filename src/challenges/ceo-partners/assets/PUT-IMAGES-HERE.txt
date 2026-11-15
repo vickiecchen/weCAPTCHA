@@ -1,0 +1,14 @@
+Optional photos. Drop a file here and refresh if it does not appear.
+jpg, jpeg, png, webp, or gif. The name must match; the extension can vary.
+
+ceo — the person in the middle
+p1 — Brenda, co-founder (partner)
+p2 — Todd, intern (partner)
+p3 — Linda, wife (not a partner)
+p4 — Unnamed investor (partner)
+p5 — Gerald, rubber duck (partner)
+p6 — Kyle, barista (not a partner)
+p7 — Carol, his mom (not a partner)
+p8 — Priya, head of sales (partner)
+
+Use stock photos, teammates, or illustrations. Missing files show an emoji.

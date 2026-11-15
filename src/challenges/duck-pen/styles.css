@@ -1,0 +1,29 @@
+.duck-pond {
+  position: relative;
+  height: 210px;
+  border: 4px dashed #8b5a2b;
+  border-radius: 8px;
+  background: #e8d9ae;
+}
+
+.duck-pen-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(139, 90, 43, 0.28);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  pointer-events: none;
+}
+
+.duck-pen-duck {
+  position: fixed;
+  z-index: 50;
+  font-size: 34px;
+  line-height: 1;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
