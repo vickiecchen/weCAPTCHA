@@ -4,9 +4,9 @@ import { DuckPen } from './duck-pen'
 import { MuffinChihuahua } from './muffin-chihuahua'
 import { SlidePuzzle } from './slide-puzzle'
 import { SmallestCircle } from './smallest-circle'
+import { Integrate } from './integrate'
 import { TypeText } from './type-text'
 import type { ChallengeDefinition } from './types'
-import { WhichHeavier } from './which-heavier'
 
 /**
  * Demo order. stupid-api is implemented but stays off, matching the source game.
@@ -44,10 +44,10 @@ export const challenges: ChallengeDefinition[] = [
     Component: MuffinChihuahua,
   },
   {
-    id: 'which-heavier',
-    title: 'Click the object that would tip the scale',
+    id: 'integrate',
+    title: 'Integrate (first 6 digits)',
     prompt: '',
-    Component: WhichHeavier,
+    Component: Integrate,
   },
   {
     id: 'duck-pen',
