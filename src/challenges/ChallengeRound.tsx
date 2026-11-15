@@ -73,7 +73,7 @@ function Card({
   return (
     <div className={`puzzle${className ? ` ${className}` : ''}`}>
       <div className="puzzle-head">
-        <small>{prompt}</small>
+        {prompt ? <small>{prompt}</small> : null}
         <b>{title}</b>
         {hint ? <span className="puzzle-head-hint">{hint}</span> : null}
       </div>

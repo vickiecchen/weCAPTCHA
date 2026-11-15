@@ -1,0 +1,9 @@
+.integral {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.integrate-input {
+  margin-top: 16px;
+}
